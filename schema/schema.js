@@ -4,10 +4,11 @@ const Book = require("../models/books");
 const Author = require("../models/author");
 
 const {
-  GraphQLObjectType,
   GraphQLID,
   GraphQLInt,
   GraphQLList,
+  GraphQLNonNull,
+  GraphQLObjectType,
   GraphQLString,
   GraphQLSchema
 } = graphql;
@@ -15,6 +16,9 @@ const {
 const IdType = { type: GraphQLID };
 const IntType = { type: GraphQLInt };
 const StringType = { type: GraphQLString };
+const NonNullIdType = { type: new GraphQLNonNull(GraphQLID) };
+const NonNullIntType = { type: new GraphQLNonNull(GraphQLInt) };
+const NonNullStringType = { type: new GraphQLNonNull(GraphQLString) };
 
 const BookType = new GraphQLObjectType({
   name: "Book",
@@ -98,8 +102,8 @@ const Mutation = new GraphQLObjectType({
     addAuthor: {
       type: AuthorType,
       args: {
-        name: StringType,
-        age: IntType
+        name: NonNullStringType,
+        age: NonNullIntType
       },
       resolve(source, args) {
         let author = new Author({
@@ -112,9 +116,9 @@ const Mutation = new GraphQLObjectType({
     addBook: {
       type: BookType,
       args: {
-        name: StringType,
-        genre: StringType,
-        author_id: StringType
+        name: NonNullStringType,
+        genre: NonNullStringType,
+        author_id: NonNullIdType
       },
       resolve(source, args) {
         let book = new Book({
