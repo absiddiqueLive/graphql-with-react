@@ -1,8 +1,17 @@
 const express = require("express");
 const graphqlHTTP = require("express-graphql");
+const schema = require("./schema/schema");
+const mongoose = require("mongoose");
+
 const app = express();
 
-const schema = require("./schema/schema");
+const dbUrl =
+  "mongodb+srv://username:password@graphql-test-bmys9.mongodb.net/test?retryWrites=true&w=majority";
+
+mongoose.connect(dbUrl);
+mongoose.connection.once("open", () => {
+  console.log("Connection established with DB");
+});
 
 app.use(
   "/graphql",
