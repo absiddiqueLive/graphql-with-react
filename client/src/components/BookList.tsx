@@ -1,16 +1,6 @@
 import React from "react";
-import gql from "graphql-tag";
 import { graphql } from "react-apollo";
-
-const getBookQuery = gql`
-  {
-    books {
-      id
-      name
-      genre
-    }
-  }
-`;
+import { getBooksQuery } from "../queries/BookQueries";
 
 interface IAuthor {
   id: string;
@@ -51,4 +41,4 @@ class BookList extends React.Component<any> {
   }
 }
 
-export default graphql(getBookQuery)(BookList);
+export default graphql(getBooksQuery)(BookList);

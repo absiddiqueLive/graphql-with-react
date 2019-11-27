@@ -1,35 +1,7 @@
 import React from "react";
-import gql from "graphql-tag";
 import { graphql } from "react-apollo";
 import * as compose from "lodash.flowright";
-
-const getAuthorsQuery = gql`
-  {
-    authors {
-      id
-      name
-    }
-  }
-`;
-
-const addBookMutation = gql`
-  mutation($name: String!, $genre: String!, $authorId: ID!) {
-    addBook(name: $name, genre: $genre, author_id: $authorId) {
-      id
-      name
-    }
-  }
-`;
-
-const getBookQuery = gql`
-  {
-    books {
-      id
-      name
-      genre
-    }
-  }
-`;
+import { getBooksQuery, getAuthorsQuery, addBookMutation } from "../queries/BookQueries";
 
 interface IAuthor {
   id: string;
@@ -84,7 +56,7 @@ class AddBook extends React.Component<any, StateBook> {
     e.preventDefault();
     this.props.addBookMutation({
       variables: this.state,
-      refetchQueries: [{ query: getBookQuery }]
+      refetchQueries: [{ query: getBooksQuery }]
     });
     this.setState({
       name: "",
