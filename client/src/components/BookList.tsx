@@ -1,23 +1,7 @@
 import React from "react";
 import { graphql } from "react-apollo";
 import { getBooksQuery } from "../queries/BookQueries";
-
-interface IAuthor {
-  id: string;
-  name: string;
-  age: number;
-}
-
-interface IBook {
-  id: string;
-  name: string;
-  genre: string;
-  author: IAuthor;
-}
-
-interface PropBook {
-  data: any;
-}
+import { IBook } from "../interfaces/BookInterfaces";
 
 class BookList extends React.Component<any> {
   showBooks() {

@@ -2,29 +2,8 @@ import React from "react";
 import { graphql } from "react-apollo";
 import * as compose from "lodash.flowright";
 import { getBooksQuery, getAuthorsQuery, addBookMutation } from "../queries/BookQueries";
-
-interface IAuthor {
-  id: string;
-  name: string;
-  age: number;
-}
-
-interface IBook {
-  id: string;
-  name: string;
-  genre: string;
-  author: IAuthor;
-}
-
-interface StateBook {
-  name: string;
-  genre: string;
-  authorId: string;
-}
-
-interface PropBook {
-  data: any;
-}
+import { IAuthor } from "../interfaces/AuthorInterfaces";
+import { StateBook } from "../interfaces/BookInterfaces";
 
 class AddBook extends React.Component<any, StateBook> {
   constructor(props: any) {
