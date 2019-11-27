@@ -1,5 +1,24 @@
 import gql from "graphql-tag";
 
+const getBookQuery = gql`
+  query($id: ID) {
+    books {
+      id
+      name
+      genre
+      author {
+        id
+        name
+        age
+        books {
+          id
+          name
+        }
+      }
+    }
+  }
+`;
+
 const getBooksQuery = gql`
   {
     books {
@@ -28,4 +47,4 @@ const addBookMutation = gql`
   }
 `;
 
-export { getBooksQuery, getAuthorsQuery, addBookMutation };
+export { getBookQuery, getBooksQuery, getAuthorsQuery, addBookMutation };

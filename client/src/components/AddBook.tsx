@@ -1,20 +1,25 @@
 import React from "react";
 import { graphql } from "react-apollo";
 import * as compose from "lodash.flowright";
-import { getBooksQuery, getAuthorsQuery, addBookMutation } from "../queries/BookQueries";
 import { IAuthor } from "../interfaces/AuthorInterfaces";
 import { StateBook } from "../interfaces/BookInterfaces";
+import {
+  getBooksQuery,
+  getAuthorsQuery,
+  addBookMutation
+} from "../queries/BookQueries";
 
 class AddBook extends React.Component<any, StateBook> {
+  emptyBook = {
+    name: "",
+    genre: "",
+    authorId: ""
+  };
   constructor(props: any) {
     super(props);
-
-    this.state = {
-      name: "",
-      genre: "",
-      authorId: ""
-    };
+    this.state = this.emptyBook;
   }
+  
   displayAuthor() {
     let data = this.props.getAuthorsQuery;
 
@@ -37,11 +42,7 @@ class AddBook extends React.Component<any, StateBook> {
       variables: this.state,
       refetchQueries: [{ query: getBooksQuery }]
     });
-    this.setState({
-      name: "",
-      genre: "",
-      authorId: ""
-    })
+    this.setState(this.emptyBook);
   }
 
   render() {
@@ -50,7 +51,8 @@ class AddBook extends React.Component<any, StateBook> {
         <div className="field">
           <label>Book Name</label>
           <input
-            type="text" value={this.state.name}
+            type="text"
+            value={this.state.name}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
               this.setState({ name: e.target.value })
             }
@@ -60,7 +62,8 @@ class AddBook extends React.Component<any, StateBook> {
         <div className="field">
           <label>Genre</label>
           <input
-            type="text" value={this.state.genre}
+            type="text"
+            value={this.state.genre}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
               this.setState({ genre: e.target.value })
             }
@@ -69,7 +72,8 @@ class AddBook extends React.Component<any, StateBook> {
 
         <div className="field">
           <label>Author</label>
-          <select value={this.state.authorId}
+          <select
+            value={this.state.authorId}
             onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
               this.setState({ authorId: e.target.value })
             }
