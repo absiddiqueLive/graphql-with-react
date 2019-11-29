@@ -4,7 +4,18 @@ import { getBooksQuery } from "../queries/BookQueries";
 import { IBook } from "../interfaces/BookInterfaces";
 import BookDetails from "./BookDetails";
 
-class BookList extends React.Component<any> {
+export interface stateCurrentBook {
+  selected: string | null;
+}
+
+class BookList extends React.Component<any, stateCurrentBook> {
+  constructor(props: any) {
+    super(props);
+    this.state = {
+      selected: null
+    };
+  }
+
   showBooks() {
     let data = this.props.data;
 
@@ -12,7 +23,18 @@ class BookList extends React.Component<any> {
       return <div>loading books ....</div>;
     } else {
       return data.books.map((book: IBook) => {
-        return <li key={book.id}>{book.name}</li>;
+        return (
+          <li
+            key={book.id}
+            onClick={(e: React.MouseEvent<HTMLLIElement, MouseEvent>) => {
+              this.setState({
+                selected: book.id
+              });
+            }}
+          >
+            {book.name}
+          </li>
+        );
       });
     }
   }
@@ -21,7 +43,7 @@ class BookList extends React.Component<any> {
     return (
       <div>
         <ul id="book-list">{this.showBooks()}</ul>
-        <BookDetails />
+        <BookDetails bookId={this.state.selected} />
       </div>
     );
   }

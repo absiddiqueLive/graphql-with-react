@@ -2,7 +2,7 @@ import gql from "graphql-tag";
 
 const getBookQuery = gql`
   query($id: ID) {
-    books {
+    book(id: $id) {
       id
       name
       genre
